@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c097f7e-eb30-4aae-814a-ddb192a32709" name="Default Changelist" comment="" />
+    <list default="true" id="6c097f7e-eb30-4aae-814a-ddb192a32709" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +33,10 @@
     </projectState>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="666d57ef-e8c4-402d-940f-bfc1a3293483" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
@@ -183,7 +189,8 @@
       <workItem from="1584440255469" duration="9698000" />
       <workItem from="1584466023074" duration="2253000" />
       <workItem from="1584515832701" duration="7921000" />
-      <workItem from="1584538977015" duration="663000" />
+      <workItem from="1584538977015" duration="1098000" />
+      <workItem from="1584540088515" duration="182000" />
     </task>
     <servers />
   </component>
@@ -192,6 +199,17 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -203,6 +221,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="996" y="184" width="800" height="694" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584530561883" />
+    <state x="571" y="193" width="774" height="723" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1584540013540">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="571" y="193" width="774" height="723" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584540013540" />
     <state x="507" y="17" width="901" height="1063" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1584443101759">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
@@ -227,10 +249,14 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state width="1289" height="274" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1584530613543" />
-    <state x="452" y="151" width="1016" height="747" key="SettingsEditor" timestamp="1584539640363">
+    <state x="452" y="131" width="1016" height="747" key="SettingsEditor" timestamp="1584540069950">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="452" y="151" width="1016" height="747" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1584539640363" />
+    <state x="452" y="131" width="1016" height="747" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1584540069950" />
+    <state x="558" y="282" width="800" height="545" key="Vcs.Push.Dialog.v2" timestamp="1584540168345">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="558" y="282" width="800" height="545" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1584540168345" />
     <state x="475" y="200" width="552" height="855" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1584526856167">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
