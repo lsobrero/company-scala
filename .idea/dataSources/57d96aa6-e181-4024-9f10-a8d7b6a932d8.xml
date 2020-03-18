@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="company_database@localhost">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.17">
+    <root id="1">
+      <ServerVersion>10.6</ServerVersion>
+      <StartupTime>1584529191</StartupTime>
+    </root>
+    <database id="2" parent="1" name="company_database">
+      <ObjectId>16386</ObjectId>
+      <Owner>postgres</Owner>
+      <IntrospectionStateNumber>604</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Relations>sequence|table|16390|16392|1
+</Relations>
+    </database>
+    <database id="3" parent="1" name="postgres">
+      <ObjectId>12295</ObjectId>
+      <Comment>default administrative connection database</Comment>
+      <Owner>postgres</Owner>
+    </database>
+    <database id="4" parent="1" name="sampledb">
+      <ObjectId>16385</ObjectId>
+      <Owner>userE12</Owner>
+    </database>
+    <role id="5" parent="1" name="company_user">
+      <ObjectId>16387</ObjectId>
+      <SuperRole>1</SuperRole>
+      <CanLogin>1</CanLogin>
+    </role>
+    <role id="6" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+    </role>
+    <role id="7" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+    </role>
+    <role id="8" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+    </role>
+    <role id="9" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+    </role>
+    <role id="10" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+    </role>
+    <role id="11" parent="1" name="postgres">
+      <ObjectId>10</ObjectId>
+      <SuperRole>1</SuperRole>
+      <CreateRole>1</CreateRole>
+      <CreateDb>1</CreateDb>
+      <CanLogin>1</CanLogin>
+      <Replication>1</Replication>
+      <BypassRls>1</BypassRls>
+    </role>
+    <role id="12" parent="1" name="userE12">
+      <ObjectId>16384</ObjectId>
+      <CanLogin>1</CanLogin>
+    </role>
+    <schema id="13" parent="2" name="information_schema">
+      <ObjectId>12004</ObjectId>
+      <StateNumber>353</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="14" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+      <Comment>system catalog schema</Comment>
+      <StateNumber>350</StateNumber>
+      <Owner>postgres</Owner>
+    </schema>
+    <schema id="15" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <Comment>standard public schema</Comment>
+      <StateNumber>572</StateNumber>
+      <Owner>postgres</Owner>
+      <IntrospectionStateNumber>605</IntrospectionStateNumber>
+      <Current>1</Current>
+    </schema>
+    <access-method id="16" parent="2" name="btree">
+      <ObjectId>403</ObjectId>
+      <Comment>b-tree index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.bthandler</Handler>
+      <HandlerId>330</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="17" parent="2" name="hash">
+      <ObjectId>405</ObjectId>
+      <Comment>hash index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.hashhandler</Handler>
+      <HandlerId>331</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="18" parent="2" name="gist">
+      <ObjectId>783</ObjectId>
+      <Comment>GiST index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.gisthandler</Handler>
+      <HandlerId>332</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="19" parent="2" name="gin">
+      <ObjectId>2742</ObjectId>
+      <Comment>GIN index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.ginhandler</Handler>
+      <HandlerId>333</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="20" parent="2" name="spgist">
+      <ObjectId>4000</ObjectId>
+      <Comment>SP-GiST index access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.spghandler</Handler>
+      <HandlerId>334</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <access-method id="21" parent="2" name="brin">
+      <ObjectId>3580</ObjectId>
+      <Comment>block range index (BRIN) access method</Comment>
+      <StateNumber>1</StateNumber>
+      <Handler>pg_catalog.brinhandler</Handler>
+      <HandlerId>335</HandlerId>
+      <Type>index</Type>
+    </access-method>
+    <extension id="22" parent="2" name="plpgsql">
+      <ObjectId>12281</ObjectId>
+      <Comment>PL/pgSQL procedural language</Comment>
+      <StateNumber>505</StateNumber>
+      <Version>1.0</Version>
+      <SchemaName>pg_catalog</SchemaName>
+      <SchemaId>11</SchemaId>
+    </extension>
+    <sequence id="23" parent="15" name="journal_ordering_seq">
+      <ObjectId>16390</ObjectId>
+      <StateNumber>567</StateNumber>
+      <Owner>postgres</Owner>
+      <SequenceIdentity>1</SequenceIdentity>
+      <CacheSize>1</CacheSize>
+      <DataType>bigint</DataType>
+    </sequence>
+    <table id="24" parent="15" name="company_report">
+      <ObjectId>16420</ObjectId>
+      <Owner>company_user</Owner>
+      <StateNumber>590</StateNumber>
+    </table>
+    <table id="25" parent="15" name="journal">
+      <ObjectId>16392</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>567</StateNumber>
+    </table>
+    <table id="26" parent="15" name="read_side_offsets">
+      <ObjectId>16412</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>570</StateNumber>
+    </table>
+    <table id="27" parent="15" name="snapshot">
+      <ObjectId>16404</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>569</StateNumber>
+    </table>
+    <column id="28" parent="24" name="company_id">
+      <Position>1</Position>
+      <DataType>varchar|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>590</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="29" parent="24" name="creation_date">
+      <Position>2</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>590</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="30" parent="24" name="checkout_date">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>590</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="31" parent="24" name="company_report_pkey">
+      <ObjectId>16426</ObjectId>
+      <StateNumber>590</StateNumber>
+      <ColNames>company_id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="32" parent="24" name="company_report_pkey">
+      <ObjectId>16427</ObjectId>
+      <StateNumber>590</StateNumber>
+      <ColNames>company_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>company_report_pkey</UnderlyingIndexName>
+    </key>
+    <column id="33" parent="25" name="ordering">
+      <Position>1</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>567</StateNumber>
+      <DefaultExpression>nextval(&apos;journal_ordering_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="34" parent="25" name="persistence_id">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>567</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="35" parent="25" name="sequence_number">
+      <Position>3</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>567</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="36" parent="25" name="deleted">
+      <Position>4</Position>
+      <DataType>boolean|0s</DataType>
+      <StateNumber>567</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="37" parent="25" name="tags">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>567</StateNumber>
+      <DefaultExpression>NULL::character varying</DefaultExpression>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="38" parent="25" name="message">
+      <Position>6</Position>
+      <DataType>bytea|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>567</StateNumber>
+      <TypeId>17</TypeId>
+    </column>
+    <index id="39" parent="25" name="journal_ordering_idx">
+      <ObjectId>16403</ObjectId>
+      <StateNumber>568</StateNumber>
+      <ColNames>ordering</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="40" parent="25" name="journal_pkey">
+      <ObjectId>16401</ObjectId>
+      <StateNumber>567</StateNumber>
+      <ColNames>persistence_id
+sequence_number</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="41" parent="25" name="journal_pkey">
+      <ObjectId>16402</ObjectId>
+      <StateNumber>567</StateNumber>
+      <ColNames>persistence_id
+sequence_number</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>journal_pkey</UnderlyingIndexName>
+    </key>
+    <column id="42" parent="26" name="read_side_id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>570</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="43" parent="26" name="tag">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>570</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="44" parent="26" name="sequence_offset">
+      <Position>3</Position>
+      <DataType>bigint|0s</DataType>
+      <StateNumber>570</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="45" parent="26" name="time_uuid_offset">
+      <Position>4</Position>
+      <DataType>char(36)|0s</DataType>
+      <StateNumber>570</StateNumber>
+      <TypeId>1042</TypeId>
+    </column>
+    <index id="46" parent="26" name="read_side_offsets_pkey">
+      <ObjectId>16418</ObjectId>
+      <StateNumber>570</StateNumber>
+      <ColNames>read_side_id
+tag</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="47" parent="26" name="read_side_offsets_pkey">
+      <ObjectId>16419</ObjectId>
+      <StateNumber>570</StateNumber>
+      <ColNames>read_side_id
+tag</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>read_side_offsets_pkey</UnderlyingIndexName>
+    </key>
+    <column id="48" parent="27" name="persistence_id">
+      <Position>1</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>569</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="49" parent="27" name="sequence_number">
+      <Position>2</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>569</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="50" parent="27" name="created">
+      <Position>3</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>569</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="51" parent="27" name="snapshot">
+      <Position>4</Position>
+      <DataType>bytea|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>569</StateNumber>
+      <TypeId>17</TypeId>
+    </column>
+    <index id="52" parent="27" name="snapshot_pkey">
+      <ObjectId>16410</ObjectId>
+      <StateNumber>569</StateNumber>
+      <ColNames>persistence_id
+sequence_number</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="53" parent="27" name="snapshot_pkey">
+      <ObjectId>16411</ObjectId>
+      <StateNumber>569</StateNumber>
+      <ColNames>persistence_id
+sequence_number</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>snapshot_pkey</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>

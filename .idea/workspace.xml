@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6c097f7e-eb30-4aae-814a-ddb192a32709" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1YetZBH0NQI75YMLng0Zal1npmr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="company-scala" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="company-scala [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="lagom-internal-meta-project-service-locator [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/target/lagom-dynamic-projects/lagom-internal-meta-project-service-locator" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="company-api [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/company-api" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="company [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/company" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="lagom-internal-meta-project-kafka [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/target/lagom-dynamic-projects/lagom-internal-meta-project-kafka" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="inventory-api [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/inventory-api" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="lagom-internal-meta-project-cassandra [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/target/lagom-dynamic-projects/lagom-internal-meta-project-cassandra" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="inventory [file:/home/luis/lavoro/group-company/company-scala/]" />
+                <option name="path" value="$PROJECT_DIR$/inventory" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="company-scala-build" />
+                <option name="path" value="$PROJECT_DIR$/project" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$" value="4753317591238" />
+        <entry key="$PROJECT_DIR$/build.sbt" value="1748346544" />
+        <entry key="$PROJECT_DIR$/project/build.properties" value="1244562550" />
+        <entry key="$PROJECT_DIR$/project/plugins.sbt" value="1776578504" />
+      </map>
+    </option>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@5c0eabbf" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@61d59e01" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@349e16fb" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@2fb0d409" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database_su@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="root:company_database_su@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@53b8c314" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SuggestScalaFmt">
+    <option name="enableForCurrentProject" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6c097f7e-eb30-4aae-814a-ddb192a32709" name="Default Changelist" comment="" />
+      <created>1583314941140</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583314941140</updated>
+      <workItem from="1583314945766" duration="718000" />
+      <workItem from="1583859140686" duration="104000" />
+      <workItem from="1584004060493" duration="5117000" />
+      <workItem from="1584112042621" duration="691000" />
+      <workItem from="1584369153805" duration="959000" />
+      <workItem from="1584370219858" duration="1097000" />
+      <workItem from="1584373488068" duration="370000" />
+      <workItem from="1584374154058" duration="2819000" />
+      <workItem from="1584430710187" duration="5590000" />
+      <workItem from="1584440255469" duration="9698000" />
+      <workItem from="1584466023074" duration="2253000" />
+      <workItem from="1584515832701" duration="7921000" />
+      <workItem from="1584538977015" duration="663000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/../.." />
+    </ignored-roots>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="996" y="184" width="800" height="694" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584530561883">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="996" y="184" width="800" height="694" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584530561883" />
+    <state x="507" y="17" width="901" height="1063" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1584443101759">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="507" y="17" width="901" height="1063" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584443101759" />
+    <state x="726" y="301" width="424" height="501" key="FileChooserDialogImpl" timestamp="1584370658733">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="726" y="301" width="424" height="501" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1584370658733" />
+    <state width="1289" height="274" key="GridCell.Tab.0.bottom" timestamp="1584530613543">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1289" height="274" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1584530613543" />
+    <state width="1289" height="274" key="GridCell.Tab.0.center" timestamp="1584530613542">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1289" height="274" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1584530613542" />
+    <state width="1289" height="274" key="GridCell.Tab.0.left" timestamp="1584530613541">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1289" height="274" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1584530613541" />
+    <state width="1289" height="274" key="GridCell.Tab.0.right" timestamp="1584530613543">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1289" height="274" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1584530613543" />
+    <state x="452" y="151" width="1016" height="747" key="SettingsEditor" timestamp="1584539640363">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="452" y="151" width="1016" height="747" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1584539640363" />
+    <state x="475" y="200" width="552" height="855" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1584526856167">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="475" y="200" width="552" height="855" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584526856167" />
+    <state x="626" y="310" key="com.intellij.ide.util.TipDialog" timestamp="1584515858258">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="626" y="310" key="com.intellij.ide.util.TipDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1584515858258" />
+    <state x="623" y="252" width="672" height="678" key="search.everywhere.popup" timestamp="1584525414482">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="623" y="252" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1584525414482" />
+  </component>
+</project>
