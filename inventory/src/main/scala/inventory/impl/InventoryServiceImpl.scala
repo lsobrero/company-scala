@@ -30,11 +30,13 @@ class InventoryServiceImpl(companyService: CompanyService) extends InventoryServ
     // inventory tracker anyway, so no need to be that careful.
     cart.items.foreach { item =>
       getInventory(item.itemId).addAndGet(-item.quantity)
+      println(s"Item changed ${item.itemId} quantity ${item.quantity}")
     }
     Done
   })
 
   override def get(itemId: String): ServiceCall[NotUsed, Int] = ServiceCall { _ =>
+    println(s"Get Item ${itemId}")
     Future.successful(inventory.get(itemId).fold(0)(_.get()))
   }
 
