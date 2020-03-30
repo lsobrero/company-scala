@@ -40,33 +40,20 @@ trait CompanyService extends Service {
    */
   def getReport(id: String): ServiceCall[NotUsed, CompanyReport]
 
-  /**
-   * Add an item in the company.
-   *
-   * Example: curl -H "Content-Type: application/json" -X POST -d '{"itemId": 456, "quantity": 2}' http://localhost:9000/company/123
-   */
-  def addItem(id: String): ServiceCall[CompanyItem, CompanyView]
 
   /**
-   * Remove an item in the company.
+   * Suspend the company.
    *
-   * Example: curl -H "Content-Type: application/json" -X DELETE -d '{"itemId": 456 }' http://localhost:9000/company/123/item/456
+   * Example: curl -X POST http://localhost:9000/company/123/suspend
    */
-  def removeItem(id: String, itemId: String): ServiceCall[NotUsed, CompanyView]
+  def suspend(id: String): ServiceCall[NotUsed, CompanyView]
 
   /**
-   * Adjust the quantity of an item in the company.
+   * Update company configuration .
    *
-   * Example: curl -H "Content-Type: application/json" -X PATCH -d '{"quantity": 2}' http://localhost:9000/company/123/item/456
+   * Example: curl -H "Content-Type: application/json" -X POST -d '{"inputLocation": "/tmp/input", "outputLocation": "/tmp/output"}' http://localhost:9000/company/1234/configure
    */
-  def adjustItemQuantity(id: String, itemId: String): ServiceCall[Quantity, CompanyView]
-
-  /**
-   * Checkout the company.
-   *
-   * Example: curl -X POST http://localhost:9000/company/123/checkout
-   */
-  def checkout(id: String): ServiceCall[NotUsed, CompanyView]
+  def configure(id: String): ServiceCall[CompanyConfiguration,CompanyView]
 
   /**
    * This gets published to Kafka.
@@ -80,10 +67,8 @@ trait CompanyService extends Service {
       .withCalls(
         restCall(Method.GET, "/company/:id", get _),
         restCall(Method.GET, "/company/:id/report", getReport _),
-        restCall(Method.POST, "/company/:id", addItem _),
-        restCall(Method.DELETE, "/company/:id/item/:itemId", removeItem _),
-        restCall(Method.PATCH, "/company/:id/item/:itemId", adjustItemQuantity _),
-        restCall(Method.POST, "/company/:id/checkout", checkout _)
+        restCall(Method.POST, "/company/:id/suspend", suspend _),
+        restCall(Method.POST, "/company/:id/configure", configure _)
       )
       .withTopics(
         topic(CompanyService.TOPIC_NAME, companyTopic)
@@ -102,38 +87,14 @@ trait CompanyService extends Service {
   }
 }
 
-/**
- * A company item.
- *
- * @param itemId The ID of the item.
- * @param quantity The quantity of the item.
- */
-final case class CompanyItem(itemId: String, quantity: Int)
-
-object CompanyItem {
-
-  /**
-   * Format for converting the company item to and from JSON.
-   *
-   * This will be picked up by a Lagom implicit conversion from Play's JSON format to Lagom's message serializer.
-   */
-  implicit val format: Format[CompanyItem] = Json.format
-}
-
-final case class Quantity(quantity: Int)
-
-object Quantity {
-  implicit val format: Format[Quantity] = Json.format
-}
 
 /**
  * A company.
  *
  * @param id The id of the company.
- * @param items The items in the company.
- * @param checkedOut Whether the company has been checked out (submitted).
+ * @param suspended Whether the company has been suspended.
  */
-final case class CompanyView(id: String, items: Seq[CompanyItem], checkedOut: Boolean)
+final case class CompanyView(id: String, inputLocation: String, outputLocation: String, suspended: Boolean)
 
 object CompanyView {
   implicit val format: Format[CompanyView] = Json.format
@@ -142,8 +103,17 @@ object CompanyView {
 /**
  * A company report exposes information about a Company.
  */
-final case class CompanyReport(companyId: String, creationDate: Instant, checkoutDate: Option[Instant])
+final case class CompanyReport(companyId: String, creationDate: Instant, inputLocation: String, outputLocation: String, suspended: Boolean)
 
 object CompanyReport {
   implicit val format: Format[CompanyReport] = Json.format
+}
+
+/**
+ * A company data updates the company info
+ */
+final case class CompanyConfiguration(inputLocation: String, outputLocation: String)
+
+object CompanyConfiguration {
+  implicit val format: Format[CompanyConfiguration] = Json.format
 }

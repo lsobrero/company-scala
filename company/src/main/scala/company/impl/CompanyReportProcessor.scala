@@ -5,7 +5,7 @@ import com.lightbend.lagom.scaladsl.persistence.ReadSideProcessor
 import com.lightbend.lagom.scaladsl.persistence.slick.SlickReadSide
 import slick.dbio.DBIOAction
 import akka.Done
-import company.impl.Company.{CartCheckedOut, Event, ItemAdded, ItemQuantityAdjusted, ItemRemoved}
+import company.impl.Company.{CompanyConfiguration, CompanySuspended, Event}
 
 class CompanyReportProcessor(readSide: SlickReadSide, repository: CompanyReportRepository)
     extends ReadSideProcessor[Event] {
@@ -14,17 +14,12 @@ class CompanyReportProcessor(readSide: SlickReadSide, repository: CompanyReportR
     readSide
       .builder[Event]("company-report")
       .setGlobalPrepare(repository.createTable())
-      .setEventHandler[ItemAdded] { envelope =>
-        repository.createReport(envelope.entityId)
+      .setEventHandler[CompanySuspended] { envelope =>
+        repository.createReport(envelope.entityId, "", "", true)
+//        repository.suspendCompany(envelope.entityId, envelope.event.isSuspended)
       }
-      .setEventHandler[ItemRemoved] { envelope =>
-        DBIOAction.successful(Done) // not used in report
-      }
-      .setEventHandler[ItemQuantityAdjusted] { envelope =>
-        DBIOAction.successful(Done) // not used in report
-      }
-      .setEventHandler[CartCheckedOut] { envelope =>
-        repository.addCheckoutTime(envelope.entityId, envelope.event.eventTime)
+      .setEventHandler[CompanyConfiguration] { configuration =>
+        repository.configureCompany(configuration.entityId, configuration.event.inputLocation, configuration.event.outputLocation)
       }
       .build()
 

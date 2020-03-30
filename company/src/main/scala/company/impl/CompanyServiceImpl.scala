@@ -15,7 +15,7 @@ import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import scala.concurrent.duration._
 import akka.util.Timeout
 import akka.cluster.sharding.typed.scaladsl.EntityRef
-import company.api.{CompanyItem, CompanyReport, CompanyService, CompanyView, Quantity}
+import company.api.{CompanyConfiguration, CompanyReport, CompanyService, CompanyView}
 import company.impl.Company._
 
 /**
@@ -42,34 +42,18 @@ class CompanyServiceImpl(
       .map(cartSummary => convertCompany(id, cartSummary))
   }
 
-  override def addItem(id: String): ServiceCall[CompanyItem, CompanyView] = ServiceCall { update =>
+
+  override def suspend(id: String): ServiceCall[NotUsed, CompanyView] = ServiceCall { _ =>
     entityRef(id)
-      .ask(reply => AddItem(update.itemId, update.quantity, reply))
+      .ask(replyTo => Suspend(replyTo))
       .map { confirmation =>
         confirmationToResult(id, confirmation)
       }
   }
 
-  override def removeItem(id: String, itemId: String): ServiceCall[NotUsed, CompanyView] = ServiceCall { update =>
+  override def configure(id: String): ServiceCall[CompanyConfiguration, CompanyView] = ServiceCall { configuration =>
     entityRef(id)
-      .ask(reply => RemoveItem(itemId, reply))
-      .map { confirmation =>
-        confirmationToResult(id, confirmation)
-      }
-  }
-
-  override def adjustItemQuantity(id: String, itemId: String): ServiceCall[Quantity, CompanyView] = ServiceCall {
-    update =>
-      entityRef(id)
-        .ask(reply => AdjustItemQuantity(itemId, update.quantity, reply))
-        .map { confirmation =>
-          confirmationToResult(id, confirmation)
-        }
-  }
-
-  override def checkout(id: String): ServiceCall[NotUsed, CompanyView] = ServiceCall { _ =>
-    entityRef(id)
-      .ask(replyTo => Checkout(replyTo))
+      .ask(reply => Configure(configuration.inputLocation, configuration.outputLocation, reply))
       .map { confirmation =>
         confirmationToResult(id, confirmation)
       }
@@ -85,7 +69,7 @@ class CompanyServiceImpl(
     (tag, fromOffset) =>
       persistentEntityRegistry
         .eventStream(tag, fromOffset)
-        .filter(_.event.isInstanceOf[CartCheckedOut])
+        .filter(_.event.isInstanceOf[CompanySuspended])
         .mapAsync(4) {
           case EventStreamElement(id, _, offset) =>
             entityRef(id)
@@ -97,8 +81,9 @@ class CompanyServiceImpl(
   private def convertCompany(id: String, companySummary: Summary) = {
     CompanyView(
       id,
-      companySummary.items.map((CompanyItem.apply _).tupled).toSeq,
-      companySummary.checkedOut
+      companySummary.inputLocation,
+      companySummary.outputLocation,
+      companySummary.isSuspended
     )
   }
 

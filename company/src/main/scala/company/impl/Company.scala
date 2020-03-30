@@ -25,30 +25,26 @@ import scala.collection.immutable.Seq
 
 object Company {
 
-  // SHOPPING CART COMMANDS
+  // COMPANY COMMANDS
 
-  // This is a marker trait for shopping cart commands.
+  // This is a marker trait for company commands.
   // We will serialize them using Akka's Jackson support that is able to deal with the replyTo field.
   // (see application.conf).
   // Keep in mind that when configuring it on application.conf you need to use the FQCN which is:
-  // com.example.shoppingcart.impl.ShoppingCart$CommandSerializable
+  // impl.Company$CommandSerializable
   // Note the "$".
   trait CommandSerializable
 
   sealed trait Command extends CommandSerializable
 
-  final case class AddItem(itemId: String, quantity: Int, replyTo: ActorRef[Confirmation]) extends Command
-
-  final case class RemoveItem(itemId: String, replyTo: ActorRef[Confirmation]) extends Command
-
-  final case class AdjustItemQuantity(itemId: String, quantity: Int, replyTo: ActorRef[Confirmation]) extends Command
-
-  final case class Checkout(replyTo: ActorRef[Confirmation]) extends Command
+  final case class Suspend(replyTo: ActorRef[Confirmation]) extends Command
 
   final case class Get(replyTo: ActorRef[Summary]) extends Command
 
-  // SHOPPING CART REPLIES
-  final case class Summary(items: Map[String, Int], checkedOut: Boolean)
+  final case class Configure(inputLocation: String, outputLocation: String, replyTo: ActorRef[Confirmation]) extends Command
+
+  // COMAPANY REPLIES
+  final case class Summary(inputLocation: String, outputLocation: String, isSuspended: Boolean)
 
   sealed trait Confirmation
 
@@ -75,7 +71,7 @@ object Company {
     }
   }
 
-  // SHOPPING CART EVENTS
+  // COMPANY EVENTS
   sealed trait Event extends AggregateEvent[Event] {
     override def aggregateTag: AggregateEventTagger[Event] = Event.Tag
   }
@@ -84,22 +80,15 @@ object Company {
     val Tag: AggregateEventShards[Event] = AggregateEventTag.sharded[Event](numShards = 10)
   }
 
-  final case class ItemAdded(itemId: String, quantity: Int) extends Event
-
-  final case class ItemRemoved(itemId: String) extends Event
-
-  final case class ItemQuantityAdjusted(itemId: String, newQuantity: Int) extends Event
-
-  final case class CartCheckedOut(eventTime: Instant) extends Event
+  final case class CompanySuspended(isSuspended: Boolean) extends Event
+  final case class CompanyConfiguration(inputLocation: String, outputLocation: String) extends Event
 
   // Events get stored and loaded from the database, hence a JSON format
   //  needs to be declared so that they can be serialized and deserialized.
-  implicit val itemAddedFormat: Format[ItemAdded]                       = Json.format
-  implicit val itemRemovedFormat: Format[ItemRemoved]                   = Json.format
-  implicit val itemQuantityAdjustedFormat: Format[ItemQuantityAdjusted] = Json.format
-  implicit val cartCheckedOutFormat: Format[CartCheckedOut]             = Json.format
+  implicit val companySuspended: Format[CompanySuspended]             = Json.format
+  implicit val companyConfiguration: Format[CompanyConfiguration]     = Json.format
 
-  val empty: Company = Company(items = Map.empty)
+  val empty: Company = Company("undefined", "undefined", false)
 
   val typeKey: EntityTypeKey[Command] = EntityTypeKey[Command]("Company")
 
@@ -110,8 +99,8 @@ object Company {
       .withEnforcedReplies[Command, Event, Company](
         persistenceId = persistenceId,
         emptyState = Company.empty,
-        commandHandler = (cart, cmd) => cart.applyCommand(cmd),
-        eventHandler = (cart, evt) => cart.applyEvent(evt)
+        commandHandler = (company, cmd) => company.applyCommand(cmd),
+        eventHandler = (company, evt) => company.applyEvent(evt)
       )
   }
 
@@ -130,79 +119,47 @@ object Company {
   implicit val companyFormat: Format[Company] = Json.format
 }
 
-final case class Company(items: Map[String, Int], checkedOutTime: Option[Instant] = None) {
+final case class Company(inputLocation:String, outputLocation: String, isSuspended: Boolean) {
 
   import Company._
 
-  def isOpen: Boolean = checkedOutTime.isEmpty
-  def checkedOut: Boolean = !isOpen
+//  def isOpen: Boolean = checkedOutTime.isEmpty
+//  def checkedOut: Boolean = !isOpen
 
-  //The shopping cart behavior changes if it's checked out or not. The command handles are different for each case.
+  //The company behavior changes if it's suspended or not. The command handles are different for each case.
   def applyCommand(cmd: Command): ReplyEffect[Event, Company] =
-    if (isOpen) {
+    if (isSuspended) {
       cmd match {
-        case AddItem(itemId, quantity, replyTo)            => onAddItem(itemId, quantity, replyTo)
-        case RemoveItem(itemId, replyTo)                   => onRemoveItem(itemId, replyTo)
-        case AdjustItemQuantity(itemId, quantity, replyTo) => onAdjustItemQuantity(itemId, quantity, replyTo)
-        case Checkout(replyTo)                             => onCheckout(replyTo)
-        case Get(replyTo)                                  => onGet(replyTo)
+        case Suspend(replyTo)                             => onResume(replyTo)
+        case Get(replyTo)                                 => onGet(replyTo)
+        case Configure(inputLocation, outputLocation, replyTo)   => onConfigure(inputLocation, outputLocation, replyTo)
       }
     } else {
       cmd match {
-        case Get(replyTo)                      => onGet(replyTo)
-        case AddItem(_, _, replyTo)            => reply(replyTo)(Rejected("Cannot add an item to a checked-out cart"))
-        case RemoveItem(_, replyTo)            => reply(replyTo)(Rejected("Cannot remove an item from a checked-out cart"))
-        case AdjustItemQuantity(_, _, replyTo) => reply(replyTo)(Rejected("Cannot adjust item on a checked-out cart"))
-        case Checkout(replyTo)                 => reply(replyTo)(Rejected("Cannot checkout a checked-out cart"))
+        case Suspend(replyTo)                             => onSuspend(replyTo)
+        case Get(replyTo)                                 => onGet(replyTo)
+        case Configure(inputLocation, outputLocation, replyTo)   => onConfigure(inputLocation, outputLocation, replyTo)
       }
     }
 
-  private def onCheckout(replyTo: ActorRef[Confirmation]): ReplyEffect[Event, Company] = {
-    if (items.isEmpty)
-      Effect.reply(replyTo)(Rejected("Cannot checkout an empty shopping cart"))
-    else
-      Effect
-        .persist(CartCheckedOut(Instant.now()))
-        .thenReply(replyTo)(updatedCart => Accepted(toSummary(updatedCart)))
+
+  private def onConfigure(inputLocation: String, outputLocation: String, replyTo:ActorRef[Confirmation]): ReplyEffect[Event, Company] = {
+  Effect
+      .persist(CompanyConfiguration(inputLocation, outputLocation))
+      .thenReply(replyTo)(configuredCompany => Accepted(toSummary(configuredCompany)))
   }
 
-  private def onAddItem(
-      itemId: String,
-      quantity: Int,
-      replyTo: ActorRef[Confirmation]
-  ): ReplyEffect[Event, Company] = {
-    if (items.contains(itemId))
-      Effect.reply(replyTo)(Rejected(s"Item '$itemId' was already added to this shopping cart"))
-    else if (quantity <= 0)
-      Effect.reply(replyTo)(Rejected("Quantity must be greater than zero"))
-    else
-      Effect
-        .persist(ItemAdded(itemId, quantity))
-        .thenReply(replyTo)(updatedCart => Accepted(toSummary(updatedCart)))
+
+  private def onSuspend(replyTo: ActorRef[Confirmation]): ReplyEffect[Event, Company] = {
+    Effect
+        .persist(CompanySuspended(true))
+        .thenReply(replyTo)(updatedCompany => Accepted(toSummary(updatedCompany)))
   }
 
-  private def onRemoveItem(itemId: String, replyTo: ActorRef[Confirmation]): ReplyEffect[Event, Company] = {
-    if (items.contains(itemId))
-      Effect
-        .persist(ItemRemoved(itemId))
-        .thenReply(replyTo)(updatedCart => Accepted(toSummary(updatedCart)))
-    else
-      Effect.reply(replyTo)(Accepted(toSummary(this))) // removing an item is idempotent
-  }
-
-  private def onAdjustItemQuantity(
-      itemId: String,
-      quantity: Int,
-      replyTo: ActorRef[Confirmation]
-  ): ReplyEffect[Event, Company] = {
-    if (quantity <= 0)
-      Effect.reply(replyTo)(Rejected("Quantity must be greater than zero"))
-    else if (items.contains(itemId))
-      Effect
-        .persist(ItemQuantityAdjusted(itemId, quantity))
-        .thenReply(replyTo)(updatedCart => Accepted(toSummary(updatedCart)))
-    else
-      Effect.reply(replyTo)(Rejected(s"Cannot adjust quantity for item '$itemId'. Item not present on cart"))
+  private def onResume(replyTo: ActorRef[Confirmation]): ReplyEffect[Event, Company] = {
+    Effect
+      .persist(CompanySuspended(false))
+      .thenReply(replyTo)(updatedCompany => Accepted(toSummary(updatedCompany)))
   }
 
   private def onGet(replyTo: ActorRef[Summary]): ReplyEffect[Event, Company] = {
@@ -210,25 +167,22 @@ final case class Company(items: Map[String, Int], checkedOutTime: Option[Instant
   }
 
   private def toSummary(company: Company): Summary =
-    Summary(company.items, company.checkedOut)
+    Summary(company.inputLocation, company.outputLocation, company.isSuspended)
 
   // we don't make a distinction of checked or open for the event handler
   // because a checked-out cart will never persist any new event
   def applyEvent(evt: Event): Company =
     evt match {
-      case ItemAdded(itemId, quantity)            => onItemAddedOrUpdated(itemId, quantity)
-      case ItemRemoved(itemId)                    => onItemRemoved(itemId)
-      case ItemQuantityAdjusted(itemId, quantity) => onItemAddedOrUpdated(itemId, quantity)
-      case CartCheckedOut(checkedOutTime)         => onCartCheckedOut(checkedOutTime)
+      case CompanySuspended(checkedOutTime)         => onSuspend(checkedOutTime)
+      case CompanyConfiguration(input, output)      => onConfiguration(input, output)
     }
 
-  private def onItemRemoved(itemId: String): Company = copy(items = items - itemId)
+  private def onSuspend(suspend: Boolean): Company = {
+    copy(isSuspended = suspend)
+  }
 
-  private def onItemAddedOrUpdated(itemId: String, quantity: Int): Company =
-    copy(items = items + (itemId -> quantity))
-
-  private def onCartCheckedOut(checkedOutTime: Instant): Company = {
-    copy(checkedOutTime = Option(checkedOutTime))
+  private def onConfiguration(input: String, output: String): Company = {
+    copy(inputLocation = input, outputLocation = output)
   }
 }
 
@@ -248,10 +202,9 @@ object CompanySerializerRegistry extends JsonSerializerRegistry {
   override def serializers: Seq[JsonSerializer[_]] = Seq(
     // state and events can use play-json, but commands should use jackson because of ActorRef[T] (see application.conf)
     JsonSerializer[Company],
-    JsonSerializer[ItemAdded],
-    JsonSerializer[ItemRemoved],
-    JsonSerializer[ItemQuantityAdjusted],
-    JsonSerializer[CartCheckedOut],
+    JsonSerializer[CompanySuspended],
+    JsonSerializer[CompanyConfiguration],
+
     // the replies use play-json as well
     JsonSerializer[Summary],
     JsonSerializer[Confirmation],

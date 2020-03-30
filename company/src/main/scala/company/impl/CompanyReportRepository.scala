@@ -23,9 +23,13 @@ class CompanyReportRepository(database: Database) {
 
     def creationDate = column[Instant]("creation_date")
 
-    def checkoutDate = column[Option[Instant]]("checkout_date")
+    def inputLocation: Rep[String] = column[String]("input_path")
 
-    def * = (companyId, creationDate, checkoutDate) <> ((CompanyReport.apply _).tupled, CompanyReport.unapply)
+    def outputLocation: Rep[String] = column[String]("output_path")
+
+    def isSuspended: Rep[Boolean] = column[Boolean]("is_suspended")
+
+    def * = (companyId, creationDate, inputLocation, outputLocation, isSuspended) <> ((CompanyReport.apply _).tupled, CompanyReport.unapply)
   }
 
   val reportTable = TableQuery[CompanyReportTable]
@@ -35,23 +39,35 @@ class CompanyReportRepository(database: Database) {
   def findById(id: String): Future[Option[CompanyReport]] =
     database.run(findByIdQuery(id))
 
-  def createReport(companyId: String): DBIO[Done] = {
+  def createReport(companyId: String, inputLocation: String, outputLocation: String, isSuspended: Boolean): DBIO[Done] = {
     findByIdQuery(companyId)
       .flatMap {
-        case None => reportTable += CompanyReport(companyId, Instant.now(), None)
+        case None => reportTable += CompanyReport(companyId, Instant.now(), inputLocation, outputLocation, isSuspended)
         case _    => DBIO.successful(Done)
       }
       .map(_ => Done)
       .transactionally
   }
 
-  def addCheckoutTime(companyId: String, checkoutDate: Instant): DBIO[Done] = {
+  def suspendCompany(companyId: String, isSuspended: Boolean): DBIO[Done] = {
     findByIdQuery(companyId)
       .flatMap {
-        case Some(company) => reportTable.insertOrUpdate(company.copy(checkoutDate = Some(checkoutDate)))
+        case Some(company) => reportTable.insertOrUpdate(company.copy(suspended = isSuspended))
         // if that happens we have a corrupted system
         // cart checkout can only happens for a existing cart
-        case None => throw new RuntimeException(s"Didn't find cart for checkout. CompanyID: $companyId")
+        case None => throw new RuntimeException(s"Didn't find company for Suspend. CompanyID: $companyId")
+      }
+      .map(_ => Done)
+      .transactionally
+  }
+
+  def configureCompany(companyId: String, input: String, output: String): DBIO[Done] = {
+    findByIdQuery(companyId)
+      .flatMap {
+        case Some(company) => reportTable.insertOrUpdate(company.copy(inputLocation = input, outputLocation = output))
+        // if that happens we have a corrupted system
+        // cart checkout can only happens for a existing cart
+        case None => throw new RuntimeException(s"Didn't find company for Suspend. CompanyID: $companyId")
       }
       .map(_ => Done)
       .transactionally

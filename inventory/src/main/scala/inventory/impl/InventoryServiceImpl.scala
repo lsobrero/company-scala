@@ -24,14 +24,11 @@ class InventoryServiceImpl(companyService: CompanyService) extends InventoryServ
 
   private def getInventory(itemId: String) = inventory.getOrElseUpdate(itemId, new AtomicInteger)
 
-  companyService.companyTopic.subscribe.atLeastOnce(Flow[CompanyView].map { cart =>
+  companyService.companyTopic.subscribe.atLeastOnce(Flow[CompanyView].map { company =>
     // Since this is at least once event handling, we really should track by shopping cart, and
     // not update inventory if we've already seen this shopping cart. But this is an in memory
     // inventory tracker anyway, so no need to be that careful.
-    cart.items.foreach { item =>
-      getInventory(item.itemId).addAndGet(-item.quantity)
-      println(s"Item changed ${item.itemId} quantity ${item.quantity}")
-    }
+    println(s"Company ${company.id} changed status ${company.suspended}" )
     Done
   })
 
